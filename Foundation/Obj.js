@@ -115,3 +115,49 @@ const keys = Object.keys(num);
 keys.forEach((key) => {
   console.log(key);
 });
+
+// オブジェクトのマージと複製
+const sources = {
+  three: 3,
+  four: 4,
+  five: 5,
+};
+const obj9 = Object.assign(num, sources);
+console.log(obj9);
+
+// spread構文でのマージ
+const objectA = { a: "a" };
+const objectB = { b: "b" };
+const merged = {
+  ...objectA,
+  ...objectB,
+};
+console.log(merged);
+
+//　オブジェクトの複製
+const shallowClone = (obj) => {
+  return Object.assign({}, obj);
+};
+
+const obj10 = { a: "a" };
+const cloneObj = shallowClone(obj10);
+console.log(cloneObj);
+console.log(obj10 === cloneObj);
+
+function deepClone(obj) {
+  const newObj = shallowClone(obj);
+  Object.keys(newObj)
+    .filter((k) => typeof newObj[k] === "object")
+    .forEach((k) => (newObj[k] = deepClone(newObj[k])));
+  return newObj;
+}
+
+const obj11 = {
+  level: 1,
+  nest: {
+    level: 2,
+  },
+};
+
+const cloneObj1 = deepClone(obj11);
+console.log(cloneObj1.nest === obj.nest);
